@@ -12,8 +12,30 @@ import java.util.List;
 public class VideoServiceImpl implements VideoService {
     @Autowired
     VideoMapper videoMapper;
+
     @Override
     public List<Video> getAll() {
         return videoMapper.queryVideo();
+    }
+
+    @Override
+    public Video getVideo(Integer vid) {
+        return videoMapper.queryVideoByVid(vid);
+    }
+
+    @Override
+    public Video saveVideo(Video video) {
+        videoMapper.save(video);
+        return video;
+    }
+
+    @Override
+    public Integer update(Integer vid, Video video) {
+        return videoMapper.update(vid, video);
+    }
+
+    @Override
+    public Integer deleteByVid(Integer vid) {
+        return videoMapper.deleteByVid(vid);
     }
 }

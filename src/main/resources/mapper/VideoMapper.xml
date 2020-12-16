@@ -2,7 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.mczhengyi.jvs.mapper.VideoMapper">
+    <resultMap id="epList" type="top.mczhengyi.jvs.bean.Video">
+        <collection property="epList" column="vid" select="top.mczhengyi.jvs.mapper.EpMapper.queryEpByVid"/>
+    </resultMap>
+    <insert id="save" useGeneratedKeys="true" keyProperty="vid" keyColumn="vid">
+        INSERT INTO t_video (name,
+        <if test="info!=null">
+            `info`,
+        </if>
+        uploader, gid, type)
+        VALUES (#{name},
+        <if test="info!=null">
+            #{info},
+        </if>
+        #{uploaderId}, #{gid}, #{type})
+    </insert>
+    <update id="update">
+        UPDATE t_video
+        <set>
+            <if test="video.name != null">
+                `name`=#{video.name} ,
+            </if>
+            <if test="video.info != null">
+                `info`=#{video.info},
+            </if>
+            <if test="video.gid != null">
+                `gid`=#{video.gid},
+            </if>
+            <if test="video.type != null">
+                `type`=#{video.type}
+            </if>
+        </set>
+        WHERE `vid`=#{vid}
+    </update>
+    <delete id="deleteByVid">
+        DELETE FROM t_video
+        WHERE `vid`=#{vid}
+    </delete>
+
     <select id="queryVideo" resultType="top.mczhengyi.jvs.bean.Video">
-        SELECT * FROM t_video
+        SELECT *
+        FROM t_video
+    </select>
+
+    <select id="queryVideoByVid" resultMap="epList" resultType="top.mczhengyi.jvs.bean.Video">
+        SELECT `vid`, `name`, `info`, gid, type
+        FROM t_video
+        WHERE `vid` = #{vid}
     </select>
 </mapper>

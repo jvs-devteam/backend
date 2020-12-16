@@ -1,3 +1,9 @@
+DROP DATABASE IF EXISTS jvs;
+
+CREATE DATABASE jvs;
+
+USE jvs;
+
 -- 用户表
 CREATE TABLE t_user
 (

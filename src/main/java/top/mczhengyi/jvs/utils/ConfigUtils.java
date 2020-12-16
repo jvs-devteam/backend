@@ -28,4 +28,11 @@ public class ConfigUtils {
         return properties.getProperty("videoServer.url");
     }
 
+    public static String getFfmpegPath() {
+        return properties.getProperty("ffmpeg.rootPath");
+    }
+
+    public static String getBasePath() {
+        return properties.getProperty("videoServer.path");
+    }
 }

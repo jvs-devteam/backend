@@ -2,9 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.mczhengyi.jvs.mapper.EpMapper">
+    <insert id="insertEp">
+        INSERT INTO t_ep (name, link, vid)
+        VALUES (#{name}, #{link}, #{vid})
+    </insert>
+    <update id="updateEp">
+        UPDATE t_ep
+        <set>
+            <if test="name != null">
+                `name`=#{name},
+            </if>
+        </set>
+        WHERE `eid`=#{eid}
+    </update>
+    <update id="updateSource">
+        UPDATE t_ep
+        SET `link`=#{path}
+        WHERE `eid`=#{eid}
+    </update>
     <select id="queryEpByVid" resultType="top.mczhengyi.jvs.bean.Ep">
         SELECT `eid`, `name`, `link`
         FROM t_ep
         WHERE `vid`=#{vid}
+    </select>
+    <select id="queryEpByEid" resultType="top.mczhengyi.jvs.bean.Ep">
+        SELECT `eid`, `name`, `link`
+        FROM t_ep
+        WHERE `eid`=#{eid}
     </select>
 </mapper>

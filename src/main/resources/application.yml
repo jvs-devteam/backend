@@ -14,3 +14,7 @@ mybatis:
   config-location: classpath:config/mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: top.mczhengyi.jvs.bean
+
+logging:
+  level:
+    top.mczhengyi.jvs.mapper: debug

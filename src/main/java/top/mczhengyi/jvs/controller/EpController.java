@@ -1,5 +1,6 @@
 package top.mczhengyi.jvs.controller;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,5 +68,11 @@ public class EpController {
             e.printStackTrace();
             return ResultUtils.fail();
         }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public Result deleteEp(@PathVariable("id") Integer eid) {
+        epService.deleteEp(eid);
+        return ResultUtils.success();
     }
 }

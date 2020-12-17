@@ -20,6 +20,14 @@
         SET `link`=#{path}
         WHERE `eid`=#{eid}
     </update>
+    <delete id="deleteEpByVid">
+        DELETE FROM t_ep
+        WHERE vid=#{vid}
+    </delete>
+    <delete id="deleteEpByEid">
+        DELETE FROM t_ep
+        WHERE eid=#{eid}
+    </delete>
     <select id="queryEpByVid" resultType="top.mczhengyi.jvs.bean.Ep">
         SELECT `eid`, `name`, `link`
         FROM t_ep

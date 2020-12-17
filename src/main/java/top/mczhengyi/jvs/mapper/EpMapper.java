@@ -12,4 +12,6 @@ public interface EpMapper {
     Integer insertEp(Ep ep);
     Integer updateEp(Ep ep);
     Integer updateSource(Integer eid, String path);
+    Integer deleteEpByVid(Integer vid);
+    Integer deleteEpByEid(Integer eid);
 }

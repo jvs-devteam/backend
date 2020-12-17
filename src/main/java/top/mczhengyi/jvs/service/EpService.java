@@ -7,4 +7,5 @@ public interface EpService {
     void insertVideo(MultipartFile multipartFile, Ep ep) throws Exception;
     void updateEp(Ep ep);
     void updateSource(MultipartFile file, Integer eid) throws Exception;
+    void deleteEp(Integer eid);
 }

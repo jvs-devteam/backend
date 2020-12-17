@@ -7,6 +7,8 @@ import top.mczhengyi.jvs.bean.Video;
 import top.mczhengyi.jvs.service.VideoService;
 import top.mczhengyi.jvs.utils.ResultUtils;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/video")
 public class VideoController {
@@ -39,11 +41,19 @@ public class VideoController {
 
     @PutMapping("/update/{vid}")
     public Result updateVideo(@PathVariable("vid") Integer vid, Video video) {
+        if (video.getName()==null && video.getType()==null  && video.getGid()==null && video.getInfo()==null) {
+            return ResultUtils.fail("请传入要修改的参数");
+        }
         return ResultUtils.success(videoService.update(vid, video));
     }
 
     @DeleteMapping("/delete/{vid}")
     public Result deleteByVid(@PathVariable("vid") Integer vid) {
-        return ResultUtils.success(videoService.deleteByVid(vid));
+        try {
+            return ResultUtils.success(videoService.deleteByVid(vid));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResultUtils.fail();
+        }
     }
 }

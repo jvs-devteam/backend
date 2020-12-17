@@ -44,4 +44,9 @@ public class EpServiceImpl implements EpService {
         epMapper.updateSource(eid, link);
         FileUtils.forceDelete(new File(ConfigUtils.getBasePath() + oldLink));
     }
+
+    @Override
+    public void deleteEp(Integer eid) {
+        epMapper.deleteEpByEid(eid);
+    }
 }

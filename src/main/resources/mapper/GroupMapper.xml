@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.mczhengyi.jvs.mapper.GroupMapper">
+    <resultMap id="groupMap" type="top.mczhengyi.jvs.bean.Group">
+        <association property="creator" column="creator" select="top.mczhengyi.jvs.mapper.UserMapper.queryUserByUid" />
+    </resultMap>
+    <insert id="insertGroup">
+        INSERT INTO t_group (name, info, creator)
+        VALUES (#{name}, #{info}, #{creator})
+    </insert>
+    <update id="updateGroup">
+        UPDATE t_group
+        <set>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="info!=null">
+                info=#{info},
+            </if>
+            <if test="creator!=null">
+                creator=#{creator}
+            </if>
+        </set>
+        WHERE gid=#{gid}
+    </update>
+    <delete id="deleteGroupByGid">
+        DELETE FROM t_group WHERE gid=#{gid}
+    </delete>
+    <select id="queryGroups" resultType="top.mczhengyi.jvs.bean.Group">
+        SELECT gid, `name`, info, creator
+        FROM t_group;
+    </select>
+    <select id="queryGroupByGid" resultMap="groupMap" resultType="top.mczhengyi.jvs.bean.Group">
+        SELECT gid, `name`, info, creator
+        FROM t_group
+        WHERE gid=#{gid};
+    </select>
+</mapper>

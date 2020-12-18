@@ -35,6 +35,9 @@ public class EpController {
         }
         // 用户认证
         Integer uid = (Integer) SecurityUtils.getSubject().getPrincipal();
+        if (!epService.getUidByVid(ep.getVid()).equals(uid)) {
+            return ResultUtils.fail("权限不足");
+        }
         String filename = multipartFile.getOriginalFilename();
         if (ConvertVideo.checkVideoFormat(filename)==0) {
             return ResultUtils.fail("请上传视频格式!(支持mp4)");
@@ -44,11 +47,8 @@ public class EpController {
             ep.setName(filename);
         }
         try {
-            if (epService.insertVideo(multipartFile, ep, uid)) {
-                return ResultUtils.success();
-            }else  {
-                return ResultUtils.fail("权限不足");
-            }
+            epService.insertVideo(multipartFile, ep);
+            return ResultUtils.success();
         }catch (Exception e) {
             e.printStackTrace();
             return ResultUtils.fail();
@@ -58,20 +58,23 @@ public class EpController {
     @PutMapping("/update/{id}")
     public Result update(@PathVariable("id") Integer eid, Ep ep) {
         Integer uid = (Integer) SecurityUtils.getSubject().getPrincipal();
+        if (!epService.getUidByEid(eid).equals(uid)) {
+            return ResultUtils.fail("权限不足");
+        }
         if (ep.getName() == null) {
             return ResultUtils.fail("请传入name参数");
         }
         ep.setEid(eid);
-        if (epService.updateEp(ep, uid)) {
-            return ResultUtils.success();
-        }else {
-            return ResultUtils.fail("权限不足");
-        }
+        epService.updateEp(ep);
+        return ResultUtils.success();
     }
 
     @PutMapping("/updateSource/{id}")
     public Result updateSource(@PathVariable("id") Integer eid, @RequestParam("file") MultipartFile file) {
         Integer uid = (Integer) SecurityUtils.getSubject().getPrincipal();
+        if (!epService.getUidByEid(eid).equals(uid)) {
+            return ResultUtils.fail("权限不足");
+        }
         if (file.isEmpty()) {
             return ResultUtils.fail("请选择要上传的文件!");
         }
@@ -81,11 +84,8 @@ public class EpController {
             // ,webm,avi,mkv
         }
         try {
-            if(epService.updateSource(file, eid, uid)) {
-                return ResultUtils.success();
-            }else {
-                return ResultUtils.fail("权限不足");
-            }
+            epService.updateSource(file, eid);
+            return ResultUtils.success();
         } catch (Exception e) {
             e.printStackTrace();
             return ResultUtils.fail();
@@ -94,12 +94,11 @@ public class EpController {
 
     @DeleteMapping("/delete/{id}")
     public Result deleteEp(@PathVariable("id") Integer eid) {
-        String user = (String) SecurityUtils.getSubject().getPrincipal();
-        Integer uid = authService.getUserInfoByUsername(user).getUid();
-        if (epService.deleteEp(eid, uid)) {
-            return ResultUtils.success();
-        }else {
+        Integer uid = (Integer) SecurityUtils.getSubject().getPrincipal();
+        if (!epService.getUidByEid(eid).equals(uid)) {
             return ResultUtils.fail("权限不足");
         }
+        epService.deleteEp(eid);
+        return ResultUtils.success();
     }
 }

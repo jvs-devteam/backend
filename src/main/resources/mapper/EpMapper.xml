@@ -29,12 +29,12 @@
         WHERE eid=#{eid}
     </delete>
     <select id="queryEpByVid" resultType="top.mczhengyi.jvs.bean.Ep">
-        SELECT `eid`, `name`, `link`
+        SELECT `eid`, `name`, `link`, `vid`
         FROM t_ep
         WHERE `vid`=#{vid}
     </select>
     <select id="queryEpByEid" resultType="top.mczhengyi.jvs.bean.Ep">
-        SELECT `eid`, `name`, `link`
+        SELECT `eid`, `name`, `link`, `vid`
         FROM t_ep
         WHERE `eid`=#{eid}
     </select>

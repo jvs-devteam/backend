@@ -1,6 +1,5 @@
 package top.mczhengyi.jvs.service.impl;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,35 +24,22 @@ public class EpServiceImpl implements EpService {
     private VideoMapper videoMapper;
 
     @Override
-    public Boolean insertVideo(MultipartFile multipartFile, Ep ep, Integer uid) throws Exception {
-        // 校验上传者是否是在自己的视频上操作
-        Integer videoUid = videoMapper.queryVideoByVid(ep.getVid()).getUploader().getUid();
-        if (!videoUid.equals(uid)) {
-            return false;
-        }
+    public void insertVideo(MultipartFile multipartFile, Ep ep) throws Exception {
         String fileName = JvsFileUtils.getRandomVideoFileName() + "-unprocessed."
                 + FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         File dest = new File(ConfigUtils.getBasePath() + "/video/" + fileName);
         multipartFile.transferTo(dest);
         ep.setLink("/video/" + fileName);
         epMapper.insertEp(ep);
-        return true;
     }
 
     @Override
-    public Boolean updateEp(Ep ep, Integer uid) {
-        if (!videoMapper.queryVideoByVid(ep.getVid()).getUploader().getUid().equals(uid)) {
-            return false;
-        }
+    public void updateEp(Ep ep) {
         epMapper.updateEp(ep);
-        return true;
     }
 
     @Override
-    public Boolean updateSource(MultipartFile file, Integer eid, Integer uid) throws Exception {
-        if (!videoMapper.queryVideoByVid(epMapper.queryEpByEid(eid).getVid()).getUploader().getUid().equals(uid)) {
-            return false;
-        }
+    public void updateSource(MultipartFile file, Integer eid) throws Exception {
         String fileName = JvsFileUtils.getRandomVideoFileName() + "-unprocessed."
                 + FilenameUtils.getExtension(file.getOriginalFilename());
         File dest = new File(ConfigUtils.getBasePath() + "/video/" + fileName);
@@ -62,15 +48,32 @@ public class EpServiceImpl implements EpService {
         String oldLink = epMapper.queryEpByEid(eid).getLink();
         epMapper.updateSource(eid, link);
         FileUtils.forceDelete(new File(ConfigUtils.getBasePath() + oldLink));
-        return true;
     }
 
     @Override
-    public Boolean deleteEp(Integer eid, Integer uid) {
-        if (!videoMapper.queryVideoByVid(epMapper.queryEpByEid(eid).getVid()).getUploader().getUid().equals(uid)) {
-            return false;
-        }
+    public void deleteEp(Integer eid) {
         epMapper.deleteEpByEid(eid);
-        return true;
+    }
+
+    @Override
+    public Integer getUidByEid(Integer eid) {
+        Ep ep = epMapper.queryEpByEid(eid);
+        if (ep == null) {
+            return -1;
+        }
+        Video video = videoMapper.queryVideoByVid(ep.getVid());
+        if (video == null) {
+            return -1;
+        }
+        return video.getUploader().getUid();
+    }
+
+    @Override
+    public Integer getUidByVid(Integer vid) {
+        Video video = videoMapper.queryVideoByVid(vid);
+        if (video == null) {
+            return -1;
+        }
+        return video.getUploader().getUid();
     }
 }

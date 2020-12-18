@@ -66,8 +66,12 @@ public class AuthController {
 
     @GetMapping("/getUserInfo")
     public Result getUserInfo() {
-        String user = (String) SecurityUtils.getSubject().getPrincipal();
-        return ResultUtils.success(authService.getUserInfoByUsername(user));
+        Integer uid = (Integer) SecurityUtils.getSubject().getPrincipal();
+        User user = authService.getUserByUid(uid);
+        if (user == null) {
+            return ResultUtils.fail("您还未登录!");
+        }
+        return ResultUtils.success(user);
     }
 
     @GetMapping("/notLogin")

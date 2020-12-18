@@ -8,4 +8,5 @@ public interface AuthService {
     User getUserByUsername(String username);
     Integer saveUser(User user);
     User getUserInfoByUsername(String username);
+    User getUserByUid(Integer uid);
 }

@@ -26,4 +26,9 @@ public class AuthServiceImpl implements AuthService {
     public User getUserInfoByUsername(String username) {
         return userMapper.queryUserInfoByUsername(username);
     }
+
+    @Override
+    public User getUserByUid(Integer uid) {
+        return userMapper.queryUserByUid(uid);
+    }
 }

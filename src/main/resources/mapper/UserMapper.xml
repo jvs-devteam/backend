@@ -2,9 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.mczhengyi.jvs.mapper.UserMapper">
+    <insert id="saveUser">
+        INSERT t_user (username, password)
+        VALUES (#{username}, #{password})
+    </insert>
     <select id="queryUserByUid" resultType="top.mczhengyi.jvs.bean.User">
         SELECT uid, username
         FROM t_user
         WHERE uid=#{uid}
+    </select>
+    <select id="queryUserByUsername" resultType="top.mczhengyi.jvs.bean.User">
+        SELECT uid, username, password
+        FROM t_user
+        WHERE username=#{username}
+    </select>
+    <select id="queryUserInfoByUsername" resultType="top.mczhengyi.jvs.bean.User">
+        SELECT uid, username
+        FROM t_user
+        WHERE username=#{username}
     </select>
 </mapper>

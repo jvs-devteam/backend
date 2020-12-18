@@ -1,14 +1,17 @@
 package top.mczhengyi.jvs.service.impl;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import top.mczhengyi.jvs.bean.Ep;
 import top.mczhengyi.jvs.bean.Video;
 import top.mczhengyi.jvs.mapper.EpMapper;
 import top.mczhengyi.jvs.mapper.VideoMapper;
 import top.mczhengyi.jvs.service.VideoService;
 import top.mczhengyi.jvs.utils.ConfigUtils;
+import top.mczhengyi.jvs.utils.JvsFileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +36,15 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public Video saveVideo(Video video) {
+    public Video saveVideo(MultipartFile file, Video video) throws IOException {
+        if (file != null) {
+            String fileName = JvsFileUtils.getRandomVideoFileName() + "-unprocessed."
+                    + FilenameUtils.getExtension(file.getOriginalFilename());
+            File dest = new File(ConfigUtils.getBasePath() + "/cover_img/" + fileName);
+            file.transferTo(dest);
+            String filePath = "/cover_img/" + fileName;
+            video.setCoverImg(filePath);
+        }
         videoMapper.save(video);
         return video;
     }
@@ -51,5 +62,10 @@ public class VideoServiceImpl implements VideoService {
             epMapper.deleteEpByEid(ep.getEid());
         }
         return videoMapper.deleteByVid(vid);
+    }
+
+    @Override
+    public Integer getVideoUid(Integer vid) {
+        return videoMapper.queryVideoByVid(vid).getUploader().getUid();
     }
 }

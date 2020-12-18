@@ -1,5 +1,8 @@
 package top.mczhengyi.jvs.bean;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Ep {
     private Integer eid;
     private String name;

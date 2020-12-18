@@ -38,4 +38,13 @@ public class GroupServiceImpl implements GroupService {
     public Integer deleteGroup(Integer gid) {
         return groupMapper.deleteGroupByGid(gid);
     }
+
+    @Override
+    public Integer getUidByGid(Integer gid) {
+        Group group = groupMapper.queryGroupByGid(gid);
+        if (group == null) {
+            return -1;
+        }
+        return group.getCreator().getUid();
+    }
 }

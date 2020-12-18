@@ -3,6 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.mczhengyi.jvs.mapper.VideoMapper">
     <resultMap id="epList" type="top.mczhengyi.jvs.bean.Video">
+        <id property="vid" column="vid"/>
+        <association property="uploader" column="uploader" select="top.mczhengyi.jvs.mapper.UserMapper.queryUserByUid" />
         <collection property="epList" column="vid" select="top.mczhengyi.jvs.mapper.EpMapper.queryEpByVid"/>
     </resultMap>
     <insert id="save" useGeneratedKeys="true" keyProperty="vid" keyColumn="vid">
@@ -10,12 +12,12 @@
         <if test="info!=null">
             `info`,
         </if>
-        uploader, gid, type)
+        uploader, gid, type, cover_img)
         VALUES (#{name},
         <if test="info!=null">
             #{info},
         </if>
-        #{uploaderId}, #{gid}, #{type})
+        #{uploaderId}, #{gid}, #{type}, #{coverImg})
     </insert>
     <update id="update">
         UPDATE t_video
@@ -32,6 +34,9 @@
             <if test="video.type != null">
                 `type`=#{video.type}
             </if>
+            <if test="video.coverImg != null">
+                `type`=#{video.coverImg}
+            </if>
         </set>
         WHERE `vid`=#{vid}
     </update>
@@ -40,13 +45,13 @@
         WHERE `vid`=#{vid}
     </delete>
 
-    <select id="queryVideo" resultType="top.mczhengyi.jvs.bean.Video">
-        SELECT *
+    <select id="queryVideo" resultMap="epList" resultType="top.mczhengyi.jvs.bean.Video">
+        SELECT `vid`, `name`, `info`, gid, type, cover_img AS coverImg
         FROM t_video
     </select>
 
     <select id="queryVideoByVid" resultMap="epList" resultType="top.mczhengyi.jvs.bean.Video">
-        SELECT `vid`, `name`, `info`, gid, type
+        SELECT `vid`, `name`, `info`, gid, uploader, type, cover_img AS coverImg
         FROM t_video
         WHERE `vid` = #{vid}
     </select>

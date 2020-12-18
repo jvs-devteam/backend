@@ -10,4 +10,5 @@ public interface GroupService {
     Integer insertGroup(Group group);
     Integer updateGroup(Integer gid, Group group);
     Integer deleteGroup(Integer gid);
+    Integer getUidByGid(Integer gid);
 }

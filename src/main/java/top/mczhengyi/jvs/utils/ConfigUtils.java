@@ -35,4 +35,25 @@ public class ConfigUtils {
     public static String getBasePath() {
         return properties.getProperty("videoServer.path");
     }
+
+//    redis.host=127.0.0.1
+//    redis.port=6379
+//    redis.expire=604800
+//    redis.timeout=5000
+
+    public static String getRedisHost() {
+        return properties.getProperty("redis.host");
+    }
+
+    public static int getRedisPort() {
+        return Integer.parseInt(properties.getProperty("redis.port"));
+    }
+
+    public static int getRedisExpire() {
+        return Integer.parseInt(properties.getProperty("redis.expire"));
+    }
+
+    public static int getRedisTimeOut() {
+        return Integer.parseInt(properties.getProperty("redis.timeout"));
+    }
 }

@@ -1,3 +1,6 @@
+-- 数据库初始化
+-- Version 1.1
+
 DROP DATABASE IF EXISTS jvs;
 
 CREATE DATABASE jvs;
@@ -28,6 +31,7 @@ CREATE TABLE t_video
     info     VARCHAR(300) DEFAULT '-' COMMENT 'Video Information',
     uploader INT          DEFAULT NULL COMMENT 'Uploader uid',
     gid      INT          DEFAULT NULL COMMENT 'GroupId',
+    cover_img VARCHAR(256) DEFAULT NULL COMMENT 'Cover Image',
     type     INT          DEFAULT 1 COMMENT 'Video Type: 1. Video 2. Anime 3. Movie',
     FOREIGN KEY (uploader) REFERENCES t_user (uid),
     FOREIGN KEY (gid) REFERENCES t_group (gid),

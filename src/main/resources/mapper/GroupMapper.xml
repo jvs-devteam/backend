@@ -7,7 +7,7 @@
     </resultMap>
     <insert id="insertGroup">
         INSERT INTO t_group (name, info, creator)
-        VALUES (#{name}, #{info}, #{creator})
+        VALUES (#{name}, #{info}, #{creatorId})
     </insert>
     <update id="updateGroup">
         UPDATE t_group
@@ -27,7 +27,7 @@
     <delete id="deleteGroupByGid">
         DELETE FROM t_group WHERE gid=#{gid}
     </delete>
-    <select id="queryGroups" resultType="top.mczhengyi.jvs.bean.Group">
+    <select id="queryGroups" resultMap="groupMap" resultType="top.mczhengyi.jvs.bean.Group">
         SELECT gid, `name`, info, creator
         FROM t_group;
     </select>

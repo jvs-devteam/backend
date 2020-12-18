@@ -4,8 +4,8 @@ import org.springframework.web.multipart.MultipartFile;
 import top.mczhengyi.jvs.bean.Ep;
 
 public interface EpService {
-    void insertVideo(MultipartFile multipartFile, Ep ep) throws Exception;
-    void updateEp(Ep ep);
-    void updateSource(MultipartFile file, Integer eid) throws Exception;
-    void deleteEp(Integer eid);
+    Boolean insertVideo(MultipartFile multipartFile, Ep ep, Integer uid) throws Exception;
+    Boolean updateEp(Ep ep, Integer uid);
+    Boolean updateSource(MultipartFile file, Integer eid, Integer uid) throws Exception;
+    Boolean deleteEp(Integer eid, Integer uid);
 }

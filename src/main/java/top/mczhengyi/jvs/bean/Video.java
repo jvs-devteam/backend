@@ -13,12 +13,13 @@ public class Video {
     private User uploader;
     private Integer gid;
     private Integer type;
+    private String coverImg;
     private List<Ep> epList;
 
     public Video() {
     }
 
-    public Video(Integer vid, String name, String info, Integer uploaderId, User uploader, Integer gid, Integer type, List<Ep> epList) {
+    public Video(Integer vid, String name, String info, Integer uploaderId, User uploader, Integer gid, Integer type, List<Ep> epList, String coverImg) {
         this.vid = vid;
         this.name = name;
         this.info = info;
@@ -27,6 +28,15 @@ public class Video {
         this.gid = gid;
         this.type = type;
         this.epList = epList;
+        this.coverImg = coverImg;
+    }
+
+    public String getCoverImg() {
+        return coverImg;
+    }
+
+    public void setCoverImg(String coverImg) {
+        this.coverImg = coverImg;
     }
 
     public Integer getVid() {
@@ -103,6 +113,7 @@ public class Video {
                 ", uploader=" + uploader +
                 ", gid=" + gid +
                 ", type=" + type +
+                ", coverImg='" + coverImg + '\'' +
                 ", epList=" + epList +
                 '}';
     }

@@ -5,12 +5,8 @@ import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import org.apache.commons.io.FilenameUtils;
-import sun.security.krb5.Config;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 public class ConvertVideo {
 
@@ -56,7 +52,7 @@ public class ConvertVideo {
 //    }
 
     public static String convertVideo(String uncompressFilePath) throws IOException {
-        String filename = FileNameUtils.getRandomVideoFileName() + ".mp4";
+        String filename = JvsFileUtils.getRandomVideoFileName() + ".mp4";
         FFmpeg ffmpeg = new FFmpeg(ffmpegPath + "/ffmpeg");
         FFprobe ffprobe = new FFprobe(ffmpegPath + "/ffprobe");
 

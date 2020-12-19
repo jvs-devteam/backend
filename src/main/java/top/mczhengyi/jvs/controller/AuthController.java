@@ -1,5 +1,6 @@
 package top.mczhengyi.jvs.controller;
 
+import io.swagger.annotations.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -12,14 +13,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 import top.mczhengyi.jvs.bean.Result;
 import top.mczhengyi.jvs.bean.User;
 import top.mczhengyi.jvs.service.AuthService;
 import top.mczhengyi.jvs.utils.ResultUtils;
 
+@Api(tags = "用户管理")
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
+public class AuthController extends BaseController {
 
     @Autowired
     private AuthService authService;
@@ -27,6 +30,11 @@ public class AuthController {
     /**
      * 登录接口
      */
+    @ApiOperation(value = "登录", notes = "登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", dataType = "string", required = true),
+            @ApiImplicitParam(name = "password", value = "密码", dataType = "string", required = true)
+    })
     @PostMapping("/login")
     public Result doLogin(User user) {
         try {

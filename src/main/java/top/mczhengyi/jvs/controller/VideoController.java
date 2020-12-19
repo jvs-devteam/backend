@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/video")
-public class VideoController {
+public class VideoController extends BaseController {
     @Autowired
     VideoService videoService;
 

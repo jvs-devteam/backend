@@ -1,6 +1,8 @@
 package top.mczhengyi.jvs.bean;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+import springfox.documentation.annotations.ApiIgnore;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User{

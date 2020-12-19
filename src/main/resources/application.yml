@@ -22,3 +22,7 @@ mybatis:
 logging:
   level:
     top.mczhengyi.jvs.mapper: debug
+
+swagger:
+  base-package: top.mczhengyi.jvs.controller
+  enable: true

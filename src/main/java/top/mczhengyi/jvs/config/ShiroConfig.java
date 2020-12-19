@@ -36,6 +36,13 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/video/getAll", "anon");
         filterChainDefinitionMap.put("/video/get/**", "anon");
         filterChainDefinitionMap.put("/auth/**", "anon");
+        // Swagger 防验证
+        filterChainDefinitionMap.put("/swagger-ui.html","anon");
+        filterChainDefinitionMap.put("/swagger-resources","anon");
+        filterChainDefinitionMap.put("/swagger-resources/configuration/security","anon");
+        filterChainDefinitionMap.put("/swagger-resources/configuration/ui","anon");
+        filterChainDefinitionMap.put("/v2/api-docs","anon");
+        filterChainDefinitionMap.put("/webjars/springfox-swagger-ui/**","anon");
         // 配置拦截的请求
         filterChainDefinitionMap.put("/**", "authc");
         // 配置Shiro默认登录界面地址

@@ -56,4 +56,8 @@ public class ConfigUtils {
     public static int getRedisTimeOut() {
         return Integer.parseInt(properties.getProperty("redis.timeout"));
     }
+
+    public static String getCrossOriginAddress() {
+        return "http://localhost:8080";
+    }
 }

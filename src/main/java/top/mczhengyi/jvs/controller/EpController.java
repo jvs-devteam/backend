@@ -18,7 +18,7 @@ import top.mczhengyi.jvs.utils.ResultUtils;
 
 @RestController
 @RequestMapping("/ep")
-public class EpController {
+public class EpController extends BaseController {
     @Autowired
     EpService epService;
 

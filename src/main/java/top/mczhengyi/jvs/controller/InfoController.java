@@ -8,7 +8,7 @@ import top.mczhengyi.jvs.utils.ConfigUtils;
 import top.mczhengyi.jvs.utils.ResultUtils;
 
 @RestController
-public class InfoController {
+public class InfoController extends BaseController {
     @GetMapping("/getFileServer")
     public Result getFileServer() {
         return ResultUtils.success(ConfigUtils.getBaseUrl());

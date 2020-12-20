@@ -36,6 +36,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/video/getAll", "anon");
         filterChainDefinitionMap.put("/video/get/**", "anon");
         filterChainDefinitionMap.put("/auth/**", "anon");
+        filterChainDefinitionMap.put("/getFileServer", "anon");
         // Swagger 防验证
         filterChainDefinitionMap.put("/swagger-ui.html","anon");
         filterChainDefinitionMap.put("/swagger-resources","anon");

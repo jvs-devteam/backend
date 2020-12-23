@@ -68,4 +68,9 @@ public class VideoServiceImpl implements VideoService {
     public Integer getVideoUid(Integer vid) {
         return videoMapper.queryVideoByVid(vid).getUploader().getUid();
     }
+
+    @Override
+    public List<Video> getVideoByUid(Integer uid) {
+        return videoMapper.queryVideoByUid(uid);
+    }
 }

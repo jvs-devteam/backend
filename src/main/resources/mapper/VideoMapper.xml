@@ -55,4 +55,9 @@
         FROM t_video
         WHERE `vid` = #{vid}
     </select>
+    <select id="queryVideoByUid" resultMap="epList" resultType="top.mczhengyi.jvs.bean.Video">
+        SELECT `vid`, `name`, `info`, gid, uploader, type, cover_img AS coverImg
+        FROM t_video
+        WHERE uploader=#{uid}
+    </select>
 </mapper>

@@ -26,6 +26,11 @@ public class VideoController extends BaseController {
         return ResultUtils.success(videoService.getAll());
     }
 
+    @GetMapping("/get/uid/{id}")
+    public Result getVideosByUid(@PathVariable("id") Integer id) {
+        return ResultUtils.success(videoService.getVideoByUid(id));
+    }
+
     @GetMapping("/get/{id}")
     public Result getVideoByVid(@PathVariable("id") Integer id) {
         return ResultUtils.success(videoService.getVideo(id));

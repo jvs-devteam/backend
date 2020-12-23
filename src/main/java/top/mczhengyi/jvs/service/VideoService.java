@@ -13,4 +13,5 @@ public interface VideoService {
     Integer update(Integer vid, Video video);
     Integer deleteByVid(Integer vid) throws IOException;
     Integer getVideoUid(Integer vid);
+    List<Video> getVideoByUid(Integer uid);
 }

@@ -13,4 +13,5 @@ public interface VideoMapper {
     Integer save(Video video);
     Integer update(Integer vid, Video video);
     Integer deleteByVid(Integer vid);
+    List<Video> queryVideoByUid(Integer uid);
 }

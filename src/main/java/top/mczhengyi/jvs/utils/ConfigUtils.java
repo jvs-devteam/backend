@@ -1,5 +1,8 @@
 package top.mczhengyi.jvs.utils;
 
+import org.springframework.core.io.ClassPathResource;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -10,7 +13,9 @@ public class ConfigUtils {
     static {
         InputStream is = null;
         try {
-            is = ClassLoader.getSystemResourceAsStream("config/config.properties");
+            System.out.println("Runing Config");
+            ClassPathResource classPathResource = new ClassPathResource("config" + File.separator + "config.properties");
+            is = classPathResource.getInputStream();
             properties.load(is);
         } catch (IOException e) {
             System.out.println("无法找到文件");

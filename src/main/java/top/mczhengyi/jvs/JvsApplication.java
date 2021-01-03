@@ -25,7 +25,7 @@ public class JvsApplication {
         // 文件夹存在检查
         List<String> checkList = new ArrayList<>();
         // 文件夹检查表
-        checkList.add("/");
+        checkList.add("/"); 
         checkList.add("/cover_img");
         checkList.add("/video");
         for (String check : checkList) {

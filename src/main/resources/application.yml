@@ -3,7 +3,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql:///jvs
     username: root
-    password: root
+    password: justice@2001
     driver-class-name: com.mysql.cj.jdbc.Driver
   jackson:
     default-property-inclusion: non_null

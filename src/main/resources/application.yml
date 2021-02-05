@@ -26,3 +26,10 @@ logging:
 swagger:
   base-package: top.mczhengyi.jvs.controller
   enable: true
+
+jvs:
+  fileServerUrl: http://192.168.31.1
+  redisHost: 127.0.0.1:6379
+  redisExpire: 604800
+  redisTimeout: 5000
+  uploadUrl: http://192.168.52.128/file

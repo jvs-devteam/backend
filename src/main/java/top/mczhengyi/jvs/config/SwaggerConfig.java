@@ -33,7 +33,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("**平台对外接口")
+                .title("JVS System")
                 .description("1.提供**后台使用的接口 2.提供对其他服务调用的服务")
                 .contact(new Contact("xtj332", "https://blog.csdn.net/xtj332", "xtj332111@163.com"))
                 .version("1.0")

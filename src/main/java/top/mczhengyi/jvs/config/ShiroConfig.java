@@ -8,11 +8,13 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.apache.shiro.mgt.SecurityManager;
 import org.springframework.context.annotation.Configuration;
 import top.mczhengyi.jvs.auth.MySessionManager;
 import top.mczhengyi.jvs.auth.MyShiroRealm;
+import top.mczhengyi.jvs.bean.Config;
 import top.mczhengyi.jvs.utils.ConfigUtils;
 
 import java.util.Base64;
@@ -23,6 +25,9 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
+    @Autowired
+    private Config config;
+
     /**
      * 请求拦截
      */
@@ -37,6 +42,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/video/get/**", "anon");
         filterChainDefinitionMap.put("/auth/**", "anon");
         filterChainDefinitionMap.put("/getFileServer", "anon");
+        filterChainDefinitionMap.put("/test", "anon");
         // Swagger 防验证
         filterChainDefinitionMap.put("/swagger-ui.html","anon");
         filterChainDefinitionMap.put("/swagger-resources","anon");
@@ -101,15 +107,15 @@ public class ShiroConfig {
      */
     public RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
-        redisManager.setHost(ConfigUtils.getRedisHost());
-        redisManager.setTimeout(ConfigUtils.getRedisTimeOut());
+        redisManager.setHost(config.getRedisHost());
+        redisManager.setTimeout(config.getRedisTimeout());
         return redisManager;
     }
 
     @Bean
     public RedisSessionDAO redisSessionDao() {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
-        redisSessionDAO.setExpire(ConfigUtils.getRedisExpire());
+        redisSessionDAO.setExpire(config.getRedisExpire());
         redisSessionDAO.setRedisManager(redisManager());
         return redisSessionDAO;
     }

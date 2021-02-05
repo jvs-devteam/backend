@@ -11,6 +11,7 @@ import top.mczhengyi.jvs.mapper.EpMapper;
 import top.mczhengyi.jvs.mapper.VideoMapper;
 import top.mczhengyi.jvs.service.EpService;
 import top.mczhengyi.jvs.utils.ConfigUtils;
+import top.mczhengyi.jvs.utils.EnvUtils;
 import top.mczhengyi.jvs.utils.JvsFileUtils;
 
 import java.io.File;
@@ -27,7 +28,7 @@ public class EpServiceImpl implements EpService {
     public void insertVideo(MultipartFile multipartFile, Ep ep) throws Exception {
         String fileName = JvsFileUtils.getRandomVideoFileName() + "-unprocessed."
                 + FilenameUtils.getExtension(multipartFile.getOriginalFilename());
-        File dest = new File(ConfigUtils.getBasePath() + "/video/" + fileName);
+        File dest = new File(EnvUtils.getUploadPath() + "/video/" + fileName);
         multipartFile.transferTo(dest);
         ep.setLink("/video/" + fileName);
         epMapper.insertEp(ep);
@@ -42,12 +43,12 @@ public class EpServiceImpl implements EpService {
     public void updateSource(MultipartFile file, Integer eid) throws Exception {
         String fileName = JvsFileUtils.getRandomVideoFileName() + "-unprocessed."
                 + FilenameUtils.getExtension(file.getOriginalFilename());
-        File dest = new File(ConfigUtils.getBasePath() + "/video/" + fileName);
+        File dest = new File(EnvUtils.getUploadPath()+ "/video/" + fileName);
         file.transferTo(dest);
         String link = "/video/" + fileName;
         String oldLink = epMapper.queryEpByEid(eid).getLink();
         epMapper.updateSource(eid, link);
-        FileUtils.forceDelete(new File(ConfigUtils.getBasePath() + oldLink));
+        FileUtils.forceDelete(new File(EnvUtils.getUploadPath() + oldLink));
     }
 
     @Override

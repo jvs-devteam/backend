@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ConvertVideo {
 
     private static final String ffmpegPath = ConfigUtils.getFfmpegPath();
-    private static final String basePath = ConfigUtils.getBasePath();
+    private static final String basePath = EnvUtils.getUploadPath();
 
     /**
      * 检查文件是否为视频格式，以及能否被FFmpeg转换

@@ -11,6 +11,7 @@ import top.mczhengyi.jvs.mapper.EpMapper;
 import top.mczhengyi.jvs.mapper.VideoMapper;
 import top.mczhengyi.jvs.service.VideoService;
 import top.mczhengyi.jvs.utils.ConfigUtils;
+import top.mczhengyi.jvs.utils.EnvUtils;
 import top.mczhengyi.jvs.utils.JvsFileUtils;
 
 import java.io.File;
@@ -40,7 +41,7 @@ public class VideoServiceImpl implements VideoService {
         if (file != null) {
             String fileName = JvsFileUtils.getRandomVideoFileName() + "-unprocessed."
                     + FilenameUtils.getExtension(file.getOriginalFilename());
-            File dest = new File(ConfigUtils.getBasePath() + "/cover_img/" + fileName);
+            File dest = new File(EnvUtils.getUploadPath() + "/cover_img/" + fileName);
             file.transferTo(dest);
             String filePath = "/cover_img/" + fileName;
             video.setCoverImg(filePath);
@@ -58,7 +59,7 @@ public class VideoServiceImpl implements VideoService {
     public Integer deleteByVid(Integer vid) throws IOException {
         List<Ep> eps = epMapper.queryEpByVid(vid);
         for (Ep ep : eps) {
-            FileUtils.forceDelete(new File(ConfigUtils.getBasePath() + ep.getLink()));
+            FileUtils.forceDelete(new File(EnvUtils.getUploadPath() + ep.getLink()));
             epMapper.deleteEpByEid(ep.getEid());
         }
         return videoMapper.deleteByVid(vid);

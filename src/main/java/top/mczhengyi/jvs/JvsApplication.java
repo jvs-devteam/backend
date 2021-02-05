@@ -4,11 +4,15 @@ import org.apache.commons.io.FileUtils;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import top.mczhengyi.jvs.bean.Config;
 import top.mczhengyi.jvs.utils.ConfigUtils;
+import top.mczhengyi.jvs.utils.EnvUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +26,7 @@ public class JvsApplication {
     private static final Logger log = LoggerFactory.getLogger(JvsApplication.class);
 
     public static void main(String[] args) {
+        System.out.println("Runner Path: " + EnvUtils.getBasePath());
         // 文件夹存在检查
         List<String> checkList = new ArrayList<>();
         // 文件夹检查表
@@ -29,7 +34,7 @@ public class JvsApplication {
         checkList.add("/cover_img");
         checkList.add("/video");
         for (String check : checkList) {
-            File file = new File(ConfigUtils.getBasePath() + check);
+            File file = new File(EnvUtils.getBasePath() + "/upload_file" + check);
             if (!file.exists()) {
                 try {
                     FileUtils.forceMkdir(file);
